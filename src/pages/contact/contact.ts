@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'page-contact',
@@ -7,8 +8,14 @@ import { NavController } from 'ionic-angular';
 })
 export class ContactPage {
 
-  constructor(public navCtrl: NavController) {
+  name: String = '';
+  email: String ='';
 
+  constructor(private ath: AngularFireAuth ,public navCtrl: NavController) {
+    this.ath.authState.subscribe(res => {
+      this.name = res.displayName;
+      this.email = res.email;
+    });
   }
 
 }
